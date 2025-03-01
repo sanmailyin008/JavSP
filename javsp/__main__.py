@@ -521,6 +521,10 @@ def RunNormalMode(all_movies):
                 logger.info(f'整理完成，相关文件已保存到: {movie.save_dir}\n')
             else:
                 logger.info(f'刮削完成，相关文件已保存到: {movie.nfo_file}\n')
+            
+            # 将整理好的影片写入到索引文件中
+            if Cfg().summarizer.path.summarizer_index_file:           
+                write_summarizer_index_file(os.getcwd(), [movie])
 
             if movie != all_movies[-1] and Cfg().crawler.sleep_after_scraping > Duration(0):
                 time.sleep(Cfg().crawler.sleep_after_scraping.total_seconds())
